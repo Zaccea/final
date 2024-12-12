@@ -69,7 +69,7 @@ const content = {
   </ul>
   
   <h2>Beyond the Art</h2>
-  <p>When I’m not working on client commissions or personal projects, I’m reading books, watching Period Pieces, or playing cozy games that make me fall asleep. </p>
+  <p>When I’m not working on client commissions or personal projects, I’m reading books, watching Period Pieces, or playing cozy games that make me fall asleep. These little escapes fuel my creativity and inspire my artistic direction and I’m always on the hunt for the latest period drama or a fun comfy game to wind down after a long day of modeling. If you have any recommendations, I’d love to hear them!</p>
 </div>
     `,
     portfolio: `
