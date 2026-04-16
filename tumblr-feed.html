@@ -8,8 +8,22 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: transparent;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       overflow-y: auto;
+      box-sizing: border-box;
+      background: transparent;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    img, video, iframe {
+      max-width: 100% !important;
+      height: auto !important;
     }
   </style>
 </head>
