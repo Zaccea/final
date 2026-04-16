@@ -28,6 +28,31 @@
   </style>
 </head>
 <body>
-  <script src="https://zaccea.tumblr.com/js"></script>
+  <script src="https://zaccea.tumblr.com/js">
+  <script>
+  function fixTumblrEmbed() {
+    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflowX = "hidden";
+
+    document.querySelectorAll("*").forEach(el => {
+      el.style.maxWidth = "100%";
+      if (el.scrollWidth > document.documentElement.clientWidth) {
+        el.style.width = "100%";
+      }
+    });
+
+    document.querySelectorAll("img, iframe, video").forEach(el => {
+      el.style.maxWidth = "100%";
+      el.style.height = "auto";
+    });
+  }
+
+  new MutationObserver(fixTumblrEmbed).observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  window.addEventListener("load", fixTumblrEmbed);
+</script>
 </body>
 </html>
