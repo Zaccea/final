@@ -198,17 +198,20 @@ body {
 
 .twitter-feed {
     grid-area: twitter;
+    background-color: #00bfff;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
+    padding: 10px;
+	box-shadow: 2.5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .tumblr-frame {
     width: 100%;
-    height: 100%;
     border: 0;
     display: block;
-    overflow: hidden;
+    background: transparent;
 }
 
 .footer {

@@ -641,3 +641,14 @@ navLinks.forEach(link => {
         contentPanel.innerHTML = content[target];
     });
 });
+
+window.addEventListener('message', (event) => {
+    if (!event.data || event.data.type !== 'tumblrHeight') {
+        return;
+    }
+
+    const tumblrFrame = document.querySelector('.tumblr-frame');
+    if (tumblrFrame) {
+        tumblrFrame.style.height = event.data.height + 'px';
+    }
+});

@@ -10,49 +10,87 @@
       padding: 0;
       width: 100%;
       max-width: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
       box-sizing: border-box;
       background: transparent;
     }
 
     *, *::before, *::after {
       box-sizing: border-box;
-      max-width: 100%;
     }
 
-    img, video, iframe {
+    img, video, iframe, embed, object {
       max-width: 100% !important;
       height: auto !important;
+    }
+
+    table, pre, blockquote, div, section, article {
+      max-width: 100% !important;
     }
   </style>
 </head>
 <body>
-  <script src="https://zaccea.tumblr.com/js">
+  <script src="https://zaccea.tumblr.com/js"></script>
+
   <script>
-  function fixTumblrEmbed() {
-    document.documentElement.style.overflowX = "hidden";
-    document.body.style.overflowX = "hidden";
+    function fixTumblrWidth() {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.maxWidth = '100%';
+      document.body.style.maxWidth = '100%';
 
-    document.querySelectorAll("*").forEach(el => {
-      el.style.maxWidth = "100%";
-      if (el.scrollWidth > document.documentElement.clientWidth) {
-        el.style.width = "100%";
+      document.querySelectorAll('*').forEach((el) => {
+        const style = window.getComputedStyle(el);
+
+        if (style.position !== 'fixed') {
+          el.style.maxWidth = '100%';
+        }
+
+        if (el.scrollWidth > document.documentElement.clientWidth) {
+          el.style.maxWidth = '100%';
+          if (style.display !== 'inline') {
+            el.style.width = '100%';
+          }
+        }
+      });
+
+      document.querySelectorAll('img, video, iframe, embed, object').forEach((el) => {
+        el.style.maxWidth = '100%';
+        el.style.height = 'auto';
+      });
+    }
+
+    function reportHeight() {
+      fixTumblrWidth();
+
+      const height = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+
+      if (window.parent) {
+        window.parent.postMessage({
+          type: 'tumblrHeight',
+          height: height
+        }, '*');
       }
+    }
+
+    window.addEventListener('load', () => {
+      reportHeight();
+      setTimeout(reportHeight, 300);
+      setTimeout(reportHeight, 1000);
     });
 
-    document.querySelectorAll("img, iframe, video").forEach(el => {
-      el.style.maxWidth = "100%";
-      el.style.height = "auto";
+    new MutationObserver(() => {
+      reportHeight();
+    }).observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true
     });
-  }
-
-  new MutationObserver(fixTumblrEmbed).observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
-  window.addEventListener("load", fixTumblrEmbed);
-</script>
+  </script>
 </body>
 </html>
